@@ -1,0 +1,211 @@
+@import url('../fonts/inter.css');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ── Video background ── */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+
+.bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+  z-index: -1;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+  z-index: 0;
+}
+
+/* ── Layout ── */
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* ── Hero text ── */
+.hero h1 {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+}
+
+.hero .subtitle {
+  margin-top: 0.75rem;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.78);
+  text-transform: uppercase;
+}
+
+/* ── Icon links row ── */
+.links {
+  display: flex;
+  gap: 1.75rem;
+  justify-content: center;
+  margin-top: 3rem;
+  list-style: none;
+}
+
+.links li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.link-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.link-icon:hover,
+.link-icon:focus-visible {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.7);
+  transform: translateY(-4px);
+  outline: none;
+}
+
+.link-icon svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.link-label {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+}
+
+/* ── Footer ── */
+footer {
+  position: relative;
+  z-index: 1;
+  padding: 1.25rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.04em;
+}
+
+/* ── Responsive: narrow portrait ── */
+@media (max-width: 480px) {
+  .links {
+    gap: 1.25rem;
+  }
+  .link-icon {
+    width: 54px;
+    height: 54px;
+  }
+  .link-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* ── Responsive: landscape on phones (short viewport) ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  main {
+    padding: 1rem 2rem;
+  }
+  .hero h1 {
+    font-size: clamp(1.6rem, 5vh, 2.8rem);
+  }
+  .hero .subtitle {
+    margin-top: 0.4rem;
+    font-size: clamp(0.75rem, 2vh, 1rem);
+  }
+  .links {
+    margin-top: 1.25rem;
+    gap: 1.25rem;
+  }
+  .link-icon {
+    width: 48px;
+    height: 48px;
+  }
+  .link-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  footer {
+    padding: 0.6rem;
+  }
+}
+
+/* ── Responsive: very short landscape (e.g. iPhone SE) ── */
+@media (max-height: 380px) and (orientation: landscape) {
+  .hero h1 {
+    font-size: clamp(1.4rem, 4.5vh, 2rem);
+  }
+  .links {
+    margin-top: 0.9rem;
+  }
+  .link-label {
+    display: none;
+  }
+}
