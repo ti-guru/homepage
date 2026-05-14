@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Anders Egeland</title>
+  <meta name="description" content="Anders Egeland – Lege, klatrer og nerd. Utforsker sky, media og foto.">
+  <meta name="author" content="Anders Egeland">
+  <link rel="canonical" href="https://andersegeland.no/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://andersegeland.no/">
+  <meta property="og:title" content="Anders Egeland">
+  <meta property="og:description" content="Lege. Klatrer. Nerd.">
+  <meta property="og:image" content="https://andersegeland.no/assets/og-image.jpg">
+  <meta property="og:locale" content="nb_NO">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Anders Egeland">
+  <meta name="twitter:description" content="Lege. Klatrer. Nerd.">
+  <meta name="twitter:image" content="https://andersegeland.no/assets/og-image.jpg">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Anders Egeland",
+    "url": "https://andersegeland.no",
+    "description": "Lege. Klatrer. Nerd.",
+    "sameAs": [
+      "https://cloud.andersegeland.no",
+      "https://media.andersegeland.no",
+      "https://photos.andersegeland.no"
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      min-height: 100dvh; /* dynamic viewport — accounts for mobile browser chrome */
+      overflow-x: hidden;
+    }
+
+    /* ── Video background ── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      /* ensure full coverage including dynamic toolbar area */
+      width: 100%;
+      height: 100%;
+    }
+
+    .bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Gradient fallback shown when video hasn't loaded yet */
+    .bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+      z-index: -1;
+    }
+
+    @keyframes gradientShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Dark overlay on top of video for readability */
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.52);
+      z-index: 0;
+    }
+
+    /* ── Layout ── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    /* ── Hero text ── */
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero .subtitle {
+      margin-top: 0.75rem;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      color: rgba(255, 255, 255, 0.78);
+      text-transform: uppercase;
+    }
+
+    /* ── Icon links row ── */
+    .links {
+      display: flex;
+      gap: 1.75rem;
+      justify-content: center;
+      margin-top: 3rem;
+      list-style: none;
+    }
+
+    .links li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .link-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .link-icon:hover,
+    .link-icon:focus-visible {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.7);
+      transform: translateY(-4px);
+      outline: none;
+    }
+
+    .link-icon svg {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .link-label {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.65);
+      text-transform: uppercase;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 1.25rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Responsive: narrow portrait ── */
+    @media (max-width: 480px) {
+      .links {
+        gap: 1.25rem;
+      }
+      .link-icon {
+        width: 54px;
+        height: 54px;
+      }
+      .link-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    /* ── Responsive: landscape on phones (short viewport) ── */
+    @media (max-height: 500px) and (orientation: landscape) {
+      main {
+        padding: 1rem 2rem;
+      }
+      .hero h1 {
+        font-size: clamp(1.6rem, 5vh, 2.8rem);
+      }
+      .hero .subtitle {
+        margin-top: 0.4rem;
+        font-size: clamp(0.75rem, 2vh, 1rem);
+      }
+      .links {
+        margin-top: 1.25rem;
+        gap: 1.25rem;
+      }
+      .link-icon {
+        width: 48px;
+        height: 48px;
+      }
+      .link-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+      footer {
+        padding: 0.6rem;
+      }
+    }
+
+    /* ── Responsive: very short landscape (e.g. iPhone SE) ── */
+    @media (max-height: 380px) and (orientation: landscape) {
+      .hero h1 {
+        font-size: clamp(1.4rem, 4.5vh, 2rem);
+      }
+      .links {
+        margin-top: 0.9rem;
+      }
+      .link-label {
+        display: none; /* hide labels to save vertical space */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background video -->
+  <div class="bg" aria-hidden="true">
+    <video autoplay muted loop playsinline>
+      <source src="assets/video/background.mp4" type="video/mp4">
+      <source src="assets/video/background.webm" type="video/webm">
+    </video>
+  </div>
+  <div class="bg-overlay" aria-hidden="true"></div>
+
+  <!-- Main content -->
+  <main>
+    <div class="hero">
+      <h1>Anders Egeland</h1>
+      <p class="subtitle">Lege.&ensp;Klatrer.&ensp;Nerd.</p>
+
+      <nav aria-label="External services">
+        <ul class="links">
+
+          <li>
+            <a href="https://cloud.andersegeland.no" class="link-icon" rel="noopener" aria-label="Cloud">
+              <!-- Cloud icon (Lucide) -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+              </svg>
+            </a>
+            <span class="link-label">Sky</span>
+          </li>
+
+          <li>
+            <a href="https://media.andersegeland.no" class="link-icon" rel="noopener" aria-label="Media">
+              <!-- Film icon (Lucide) -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="2.18" ry="2.18"/>
+                <line x1="7"  y1="2"  x2="7"  y2="22"/>
+                <line x1="17" y1="2"  x2="17" y2="22"/>
+                <line x1="2"  y1="12" x2="22" y2="12"/>
+                <line x1="2"  y1="7"  x2="7"  y2="7"/>
+                <line x1="2"  y1="17" x2="7"  y2="17"/>
+                <line x1="17" y1="17" x2="22" y2="17"/>
+                <line x1="17" y1="7"  x2="22" y2="7"/>
+              </svg>
+            </a>
+            <span class="link-label">Media</span>
+          </li>
+
+          <li>
+            <a href="https://photos.andersegeland.no" class="link-icon" rel="noopener" aria-label="Photos">
+              <!-- Camera icon (Lucide) -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+            </a>
+            <span class="link-label">Foto</span>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="year"></span> Anders Egeland</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
