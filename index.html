@@ -60,6 +60,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      min-height: 100dvh; /* dynamic viewport — accounts for mobile browser chrome */
       overflow-x: hidden;
     }
 
@@ -68,6 +69,9 @@
       position: fixed;
       inset: 0;
       z-index: -1;
+      /* ensure full coverage including dynamic toolbar area */
+      width: 100%;
+      height: 100%;
     }
 
     .bg video {
@@ -196,7 +200,7 @@
       letter-spacing: 0.04em;
     }
 
-    /* ── Responsive tweaks ── */
+    /* ── Responsive: narrow portrait ── */
     @media (max-width: 480px) {
       .links {
         gap: 1.25rem;
@@ -208,6 +212,48 @@
       .link-icon svg {
         width: 24px;
         height: 24px;
+      }
+    }
+
+    /* ── Responsive: landscape on phones (short viewport) ── */
+    @media (max-height: 500px) and (orientation: landscape) {
+      main {
+        padding: 1rem 2rem;
+      }
+      .hero h1 {
+        font-size: clamp(1.6rem, 5vh, 2.8rem);
+      }
+      .hero .subtitle {
+        margin-top: 0.4rem;
+        font-size: clamp(0.75rem, 2vh, 1rem);
+      }
+      .links {
+        margin-top: 1.25rem;
+        gap: 1.25rem;
+      }
+      .link-icon {
+        width: 48px;
+        height: 48px;
+      }
+      .link-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+      footer {
+        padding: 0.6rem;
+      }
+    }
+
+    /* ── Responsive: very short landscape (e.g. iPhone SE) ── */
+    @media (max-height: 380px) and (orientation: landscape) {
+      .hero h1 {
+        font-size: clamp(1.4rem, 4.5vh, 2rem);
+      }
+      .links {
+        margin-top: 0.9rem;
+      }
+      .link-label {
+        display: none; /* hide labels to save vertical space */
       }
     }
   </style>
